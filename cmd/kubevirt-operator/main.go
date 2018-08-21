@@ -4,10 +4,10 @@ import (
 	"context"
 	"runtime"
 
-	stub "github.com/rthallisey/kubevirt-operator/pkg/stub"
 	sdk "github.com/operator-framework/operator-sdk/pkg/sdk"
 	k8sutil "github.com/operator-framework/operator-sdk/pkg/util/k8sutil"
 	sdkVersion "github.com/operator-framework/operator-sdk/version"
+	stub "github.com/rthallisey/kubevirt-operator/pkg/stub"
 
 	"github.com/sirupsen/logrus"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
