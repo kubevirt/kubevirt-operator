@@ -1,7 +1,7 @@
 # kubevirt-operator
 Operator that manages KubeVirt
 
-### Build the Operator COntainer
+### Build the Operator Container
 ```bash
 operator-sdk build docker.io/rthallisey/kubevirt-operator
 ```
