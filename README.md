@@ -1,22 +1,33 @@
 # kubevirt-operator
 Operator that manages KubeVirt
 
-### Build the Operator Container
+## Quick Start
+
+### Prerequisites
+
+- Golang environment and GOPATH correctly set
+- Docker (used for creating container images, etc.) with access for the current user
+- a Kubernetes/OpenShift/Minikube/Minishift instance
+- Operator SDK
+
+### Dependencies
+
+Checkout the project and its dependencies:
+
 ```bash
-wget -o kubevirt.yaml https://github.com/kubevirt/kubevirt/releases/download/v0.6.4/kubevirt.yaml
-operator-sdk build docker.io/rthallisey/kubevirt-operator
+mkdir -p $GOPATH/src/github.com/rthallisey
+cd $GOPATH/src/github.com/rthallisey
+git clone https://github.com/rthallisey/kubevirt-operator
+cd kubevirt-operator
+git checkout master
+make dep
 ```
+
+### Compile it
+```make compile```
+
+### Build the Operator Container with the Operator SDK
+```make build```
 
 ### Launch the Operator
-```bash
-# Give the kubevirt operator user 'default' cluster-admin privilages
-$ oc adm policy add-cluster-role-to-user cluster-admin -z default
-
-# Deploy the app-operator
-$ kubectl create -f deploy/rbac.yaml
-$ kubectl create -f deploy/crd.yaml
-$ kubectl create -f deploy/operator.yaml
-
-# Create the operator resource (kubectl get apps)
-$ kubectl create -f deploy/cr.yaml
-```
+```make deploy```
