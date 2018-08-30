@@ -3,7 +3,7 @@ Operator that manages KubeVirt
 
 ### Build the Operator Container
 ```bash
-wget -o https://github.com/kubevirt/kubevirt/releases/download/v0.6.4/kubevirt.yaml
+wget -o kubevirt.yaml https://github.com/kubevirt/kubevirt/releases/download/v0.6.4/kubevirt.yaml
 operator-sdk build docker.io/rthallisey/kubevirt-operator
 ```
 
