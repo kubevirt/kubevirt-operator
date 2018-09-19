@@ -6,7 +6,7 @@ set -o pipefail
 
 vendor/k8s.io/code-generator/generate-groups.sh \
 deepcopy \
-github.com/rthallisey/kubevirt-operator/pkg/generated \
-github.com/rthallisey/kubevirt-operator/pkg/apis \
+github.com/kubevirt/kubevirt-operator/pkg/generated \
+github.com/kubevirt/kubevirt-operator/pkg/apis \
 app:v1alpha1 \
 --go-header-file "./tmp/codegen/boilerplate.go.txt"

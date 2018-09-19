@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: kubevirt-operator
-          image: docker.io/rthallisey/kubevirt-operator
+          image: docker.io/kubevirt/kubevirt-operator:latest
           ports:
           - containerPort: 60000
             name: metrics
