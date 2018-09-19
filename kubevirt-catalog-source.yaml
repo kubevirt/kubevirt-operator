@@ -1,0 +1,10 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: kubevirt-operator
+  namespace: operator-lifecycle-manager
+spec:
+  sourceType: internal
+  configMap: kubevirt-operator
+  displayName: KubeVirt Operator
+  publisher: Red Hat
