@@ -19,6 +19,1201 @@ data:
           singular: virt
         scope: Namespaced
 
+    - apiVersion: apiextensions.k8s.io/v1beta1
+      kind: CustomResourceDefinition
+      metadata:
+        name: virtualmachineinstances.kubevirt.io
+      spec:
+        version: v1alpha2
+        group: kubevirt.io
+        names:
+          kind: VirtualMachineInstance
+          listKind: vmiList
+          plural: virtualmachineinstances
+          singular: virtualmachineinstance
+        scope: Namespaced
+        validation:
+          openAPIV3Schema:
+            properties:
+              apiVersion:
+                type: string
+              kind:
+                type: string
+              metadata: {}
+              spec:
+                properties:
+                  affinity: {}
+                  domain:
+                    properties:
+                      clock:
+                        properties:
+                          timezone:
+                            type: string
+                          utc:
+                            properties:
+                              offsetSeconds:
+                                format: int32
+                                type: integer
+                      cpu:
+                        properties:
+                          cores:
+                            format: int64
+                            type: integer
+                          model:
+                            type: string
+                      devices:
+                        properties:
+                          autoattachGraphicsDevice:
+                            type: boolean
+                          autoattachPodInterface:
+                            type: boolean
+                          disks:
+                            items:
+                              properties:
+                                bootOrder:
+                                  format: int32
+                                  type: integer
+                                cdrom:
+                                  properties:
+                                    bus:
+                                      type: string
+                                    readonly:
+                                      type: boolean
+                                    tray:
+                                      type: string
+                                disk:
+                                  properties:
+                                    bus:
+                                      type: string
+                                    readonly:
+                                      type: boolean
+                                floppy:
+                                  properties:
+                                    readonly:
+                                      type: boolean
+                                    tray:
+                                      type: string
+                                lun:
+                                  properties:
+                                    bus:
+                                      type: string
+                                    readonly:
+                                      type: boolean
+                                name:
+                                  type: string
+                                serial:
+                                  type: string
+                                volumeName:
+                                  type: string
+                              required:
+                              - name
+                              - volumeName
+                            type: array
+                          interfaces:
+                            items:
+                              properties:
+                                bootOrder:
+                                  format: int32
+                                  type: integer
+                                bridge: {}
+                                macAddress:
+                                  type: string
+                                model:
+                                  type: string
+                                name:
+                                  type: string
+                                pciAddress:
+                                  type: string
+                                ports:
+                                  items:
+                                    properties:
+                                      name:
+                                        type: string
+                                      port:
+                                        format: int32
+                                        type: integer
+                                      protocol:
+                                        type: string
+                                    required:
+                                    - port
+                                  type: array
+                                slirp: {}
+                              required:
+                              - name
+                            type: array
+                          rng: {}
+                          watchdog:
+                            properties:
+                              i6300esb:
+                                properties:
+                                  action:
+                                    type: string
+                              name:
+                                type: string
+                            required:
+                            - name
+                      features:
+                        properties:
+                          acpi:
+                            properties:
+                              enabled:
+                                type: boolean
+                          apic:
+                            properties:
+                              enabled:
+                                type: boolean
+                              endOfInterrupt:
+                                type: boolean
+                          hyperv:
+                            properties:
+                              relaxed:
+                                properties:
+                                  enabled:
+                                    type: boolean
+                              reset:
+                                properties:
+                                  enabled:
+                                    type: boolean
+                              runtime:
+                                properties:
+                                  enabled:
+                                    type: boolean
+                              spinlocks:
+                                properties:
+                                  enabled:
+                                    type: boolean
+                                  spinlocks:
+                                    format: int64
+                                    type: integer
+                              synic:
+                                properties:
+                                  enabled:
+                                    type: boolean
+                              synictimer:
+                                properties:
+                                  enabled:
+                                    type: boolean
+                              vapic:
+                                properties:
+                                  enabled:
+                                    type: boolean
+                              vendorid:
+                                properties:
+                                  enabled:
+                                    type: boolean
+                                  vendorid:
+                                    type: string
+                              vpindex:
+                                properties:
+                                  enabled:
+                                    type: boolean
+                      firmware:
+                        properties:
+                          uuid:
+                            type: string
+                      machine:
+                        properties:
+                          type:
+                            type: string
+                        required:
+                        - type
+                      memory:
+                        properties:
+                          guest: {}
+                          hugepages:
+                            properties:
+                              pageSize:
+                                type: string
+                      resources:
+                        properties:
+                          limits:
+                            type: object
+                          overcommitGuestOverhead:
+                            type: boolean
+                          requests:
+                            type: object
+                    required:
+                    - devices
+                  hostname:
+                    type: string
+                  networks:
+                    items:
+                      properties:
+                        multus:
+                          properties:
+                            networkName:
+                              type: string
+                          required:
+                          - networkName
+                        name:
+                          type: string
+                        pod:
+                          properties:
+                            vmNetworkCIDR:
+                              type: string
+                      required:
+                      - name
+                    type: array
+                  nodeSelector:
+                    type: object
+                  subdomain:
+                    type: string
+                  terminationGracePeriodSeconds:
+                    format: int64
+                    type: integer
+                  tolerations:
+                    items: {}
+                    type: array
+                  volumes:
+                    items:
+                      properties:
+                        cloudInitNoCloud:
+                          properties:
+                            secretRef: {}
+                            userData:
+                              type: string
+                            userDataBase64:
+                              type: string
+                        dataVolume:
+                          properties:
+                            name:
+                              type: string
+                          required:
+                          - name
+                        emptyDisk:
+                          properties:
+                            capacity: {}
+                          required:
+                          - capacity
+                        ephemeral:
+                          properties:
+                            persistentVolumeClaim: {}
+                        name:
+                          type: string
+                        persistentVolumeClaim: {}
+                        registryDisk:
+                          properties:
+                            image:
+                              type: string
+                            imagePullSecret:
+                              type: string
+                          required:
+                          - image
+                      required:
+                      - name
+                    type: array
+                required:
+                - domain
+              status:
+                properties:
+                  conditions:
+                    items:
+                      properties:
+                        lastProbeTime: {}
+                        lastTransitionTime: {}
+                        message:
+                          type: string
+                        reason:
+                          type: string
+                        status:
+                          type: string
+                        type:
+                          type: string
+                      required:
+                      - type
+                      - status
+                    type: array
+                  interfaces:
+                    items:
+                      properties:
+                        ipAddress:
+                          type: string
+                        mac:
+                          type: string
+                    type: array
+                  nodeName:
+                    type: string
+                  phase:
+                    type: string
+
+    - apiVersion: apiextensions.k8s.io/v1beta1
+      kind: CustomResourceDefinition
+      metadata:
+        creationTimestamp: null
+        labels:
+          kubevirt.io: ""
+        name: virtualmachineinstancereplicasets.kubevirt.io
+      spec:
+        version: v1alpha2
+        group: kubevirt.io
+        names:
+          kind: VirtualMachineInstanceReplicaSet
+          plural: virtualmachineinstancereplicasets
+          shortNames:
+          - vmirs
+          - vmirss
+          singular: virtualmachineinstancereplicaset
+        scope: Namespaced
+        validation:
+          openAPIV3Schema:
+            properties:
+              apiVersion:
+                type: string
+              kind:
+                type: string
+              metadata: {}
+              spec:
+                properties:
+                  paused:
+                    type: boolean
+                  replicas:
+                    format: int32
+                    type: integer
+                  selector: {}
+                  template:
+                    properties:
+                      metadata: {}
+                      spec:
+                        properties:
+                          affinity: {}
+                          domain:
+                            properties:
+                              clock:
+                                properties:
+                                  timezone:
+                                    type: string
+                                  utc:
+                                    properties:
+                                      offsetSeconds:
+                                        format: int32
+                                        type: integer
+                              cpu:
+                                properties:
+                                  cores:
+                                    format: int64
+                                    type: integer
+                                  model:
+                                    type: string
+                              devices:
+                                properties:
+                                  autoattachGraphicsDevice:
+                                    type: boolean
+                                  autoattachPodInterface:
+                                    type: boolean
+                                  disks:
+                                    items:
+                                      properties:
+                                        bootOrder:
+                                          format: int32
+                                          type: integer
+                                        cdrom:
+                                          properties:
+                                            bus:
+                                              type: string
+                                            readonly:
+                                              type: boolean
+                                            tray:
+                                              type: string
+                                        disk:
+                                          properties:
+                                            bus:
+                                              type: string
+                                            readonly:
+                                              type: boolean
+                                        floppy:
+                                          properties:
+                                            readonly:
+                                              type: boolean
+                                            tray:
+                                              type: string
+                                        lun:
+                                          properties:
+                                            bus:
+                                              type: string
+                                            readonly:
+                                              type: boolean
+                                        name:
+                                          type: string
+                                        serial:
+                                          type: string
+                                        volumeName:
+                                          type: string
+                                      required:
+                                      - name
+                                      - volumeName
+                                    type: array
+                                  interfaces:
+                                    items:
+                                      properties:
+                                        bootOrder:
+                                          format: int32
+                                          type: integer
+                                        bridge: {}
+                                        macAddress:
+                                          type: string
+                                        model:
+                                          type: string
+                                        name:
+                                          type: string
+                                        pciAddress:
+                                          type: string
+                                        ports:
+                                          items:
+                                            properties:
+                                              name:
+                                                type: string
+                                              port:
+                                                format: int32
+                                                type: integer
+                                              protocol:
+                                                type: string
+                                            required:
+                                            - port
+                                          type: array
+                                        slirp: {}
+                                      required:
+                                      - name
+                                    type: array
+                                  rng: {}
+                                  watchdog:
+                                    properties:
+                                      i6300esb:
+                                        properties:
+                                          action:
+                                            type: string
+                                      name:
+                                        type: string
+                                    required:
+                                    - name
+                              features:
+                                properties:
+                                  acpi:
+                                    properties:
+                                      enabled:
+                                        type: boolean
+                                  apic:
+                                    properties:
+                                      enabled:
+                                        type: boolean
+                                      endOfInterrupt:
+                                        type: boolean
+                                  hyperv:
+                                    properties:
+                                      relaxed:
+                                        properties:
+                                          enabled:
+                                            type: boolean
+                                      reset:
+                                        properties:
+                                          enabled:
+                                            type: boolean
+                                      runtime:
+                                        properties:
+                                          enabled:
+                                            type: boolean
+                                      spinlocks:
+                                        properties:
+                                          enabled:
+                                            type: boolean
+                                          spinlocks:
+                                            format: int64
+                                            type: integer
+                                      synic:
+                                        properties:
+                                          enabled:
+                                            type: boolean
+                                      synictimer:
+                                        properties:
+                                          enabled:
+                                            type: boolean
+                                      vapic:
+                                        properties:
+                                          enabled:
+                                            type: boolean
+                                      vendorid:
+                                        properties:
+                                          enabled:
+                                            type: boolean
+                                          vendorid:
+                                            type: string
+                                      vpindex:
+                                        properties:
+                                          enabled:
+                                            type: boolean
+                              firmware:
+                                properties:
+                                  uuid:
+                                    type: string
+                              machine:
+                                properties:
+                                  type:
+                                    type: string
+                                required:
+                                - type
+                              memory:
+                                properties:
+                                  guest: {}
+                                  hugepages:
+                                    properties:
+                                      pageSize:
+                                        type: string
+                              resources:
+                                properties:
+                                  limits:
+                                    type: object
+                                  overcommitGuestOverhead:
+                                    type: boolean
+                                  requests:
+                                    type: object
+                            required:
+                            - devices
+                          hostname:
+                            type: string
+                          networks:
+                            items:
+                              properties:
+                                multus:
+                                  properties:
+                                    networkName:
+                                      type: string
+                                  required:
+                                  - networkName
+                                name:
+                                  type: string
+                                pod:
+                                  properties:
+                                    vmNetworkCIDR:
+                                      type: string
+                              required:
+                              - name
+                            type: array
+                          nodeSelector:
+                            type: object
+                          subdomain:
+                            type: string
+                          terminationGracePeriodSeconds:
+                            format: int64
+                            type: integer
+                          tolerations:
+                            items: {}
+                            type: array
+                          volumes:
+                            items:
+                              properties:
+                                cloudInitNoCloud:
+                                  properties:
+                                    secretRef: {}
+                                    userData:
+                                      type: string
+                                    userDataBase64:
+                                      type: string
+                                dataVolume:
+                                  properties:
+                                    name:
+                                      type: string
+                                  required:
+                                  - name
+                                emptyDisk:
+                                  properties:
+                                    capacity: {}
+                                  required:
+                                  - capacity
+                                ephemeral:
+                                  properties:
+                                    persistentVolumeClaim: {}
+                                name:
+                                  type: string
+                                persistentVolumeClaim: {}
+                                registryDisk:
+                                  properties:
+                                    image:
+                                      type: string
+                                    imagePullSecret:
+                                      type: string
+                                  required:
+                                  - image
+                              required:
+                              - name
+                            type: array
+                        required:
+                        - domain
+                required:
+                - selector
+                - template
+              status:
+                properties:
+                  conditions:
+                    items:
+                      properties:
+                        lastProbeTime: {}
+                        lastTransitionTime: {}
+                        message:
+                          type: string
+                        reason:
+                          type: string
+                        status:
+                          type: string
+                        type:
+                          type: string
+                      required:
+                      - type
+                      - status
+                    type: array
+                  readyReplicas:
+                    format: int32
+                    type: integer
+                  replicas:
+                    format: int32
+                    type: integer
+
+    - apiVersion: apiextensions.k8s.io/v1beta1
+      kind: CustomResourceDefinition
+      metadata:
+        creationTimestamp: null
+        labels:
+          kubevirt.io: ""
+        name: virtualmachineinstancepresets.kubevirt.io
+      spec:
+        version: v1alpha2
+        group: kubevirt.io
+        names:
+          kind: VirtualMachineInstancePreset
+          plural: virtualmachineinstancepresets
+          shortNames:
+          - vmipreset
+          - vmipresets
+          singular: virtualmachineinstancepreset
+        scope: Namespaced
+        validation:
+          openAPIV3Schema:
+            properties:
+              apiVersion:
+                type: string
+              kind:
+                type: string
+              metadata: {}
+              spec:
+                properties:
+                  domain:
+                    properties:
+                      clock:
+                        properties:
+                          timezone:
+                            type: string
+                          utc:
+                            properties:
+                              offsetSeconds:
+                                format: int32
+                                type: integer
+                      cpu:
+                        properties:
+                          cores:
+                            format: int64
+                            type: integer
+                          model:
+                            type: string
+                      devices:
+                        properties:
+                          autoattachGraphicsDevice:
+                            type: boolean
+                          autoattachPodInterface:
+                            type: boolean
+                          disks:
+                            items:
+                              properties:
+                                bootOrder:
+                                  format: int32
+                                  type: integer
+                                cdrom:
+                                  properties:
+                                    bus:
+                                      type: string
+                                    readonly:
+                                      type: boolean
+                                    tray:
+                                      type: string
+                                disk:
+                                  properties:
+                                    bus:
+                                      type: string
+                                    readonly:
+                                      type: boolean
+                                floppy:
+                                  properties:
+                                    readonly:
+                                      type: boolean
+                                    tray:
+                                      type: string
+                                lun:
+                                  properties:
+                                    bus:
+                                      type: string
+                                    readonly:
+                                      type: boolean
+                                name:
+                                  type: string
+                                serial:
+                                  type: string
+                                volumeName:
+                                  type: string
+                              required:
+                              - name
+                              - volumeName
+                            type: array
+                          interfaces:
+                            items:
+                              properties:
+                                bootOrder:
+                                  format: int32
+                                  type: integer
+                                bridge: {}
+                                macAddress:
+                                  type: string
+                                model:
+                                  type: string
+                                name:
+                                  type: string
+                                pciAddress:
+                                  type: string
+                                ports:
+                                  items:
+                                    properties:
+                                      name:
+                                        type: string
+                                      port:
+                                        format: int32
+                                        type: integer
+                                      protocol:
+                                        type: string
+                                    required:
+                                    - port
+                                  type: array
+                                slirp: {}
+                              required:
+                              - name
+                            type: array
+                          rng: {}
+                          watchdog:
+                            properties:
+                              i6300esb:
+                                properties:
+                                  action:
+                                    type: string
+                              name:
+                                type: string
+                            required:
+                            - name
+                      features:
+                        properties:
+                          acpi:
+                            properties:
+                              enabled:
+                                type: boolean
+                          apic:
+                            properties:
+                              enabled:
+                                type: boolean
+                              endOfInterrupt:
+                                type: boolean
+                          hyperv:
+                            properties:
+                              relaxed:
+                                properties:
+                                  enabled:
+                                    type: boolean
+                              reset:
+                                properties:
+                                  enabled:
+                                    type: boolean
+                              runtime:
+                                properties:
+                                  enabled:
+                                    type: boolean
+                              spinlocks:
+                                properties:
+                                  enabled:
+                                    type: boolean
+                                  spinlocks:
+                                    format: int64
+                                    type: integer
+                              synic:
+                                properties:
+                                  enabled:
+                                    type: boolean
+                              synictimer:
+                                properties:
+                                  enabled:
+                                    type: boolean
+                              vapic:
+                                properties:
+                                  enabled:
+                                    type: boolean
+                              vendorid:
+                                properties:
+                                  enabled:
+                                    type: boolean
+                                  vendorid:
+                                    type: string
+                              vpindex:
+                                properties:
+                                  enabled:
+                                    type: boolean
+                      firmware:
+                        properties:
+                          uuid:
+                            type: string
+                      machine:
+                        properties:
+                          type:
+                            type: string
+                        required:
+                        - type
+                      memory:
+                        properties:
+                          guest: {}
+                          hugepages:
+                            properties:
+                              pageSize:
+                                type: string
+                      resources:
+                        properties:
+                          limits:
+                            type: object
+                          overcommitGuestOverhead:
+                            type: boolean
+                          requests:
+                            type: object
+                  selector: {}
+                required:
+                - selector
+
+    - apiVersion: apiextensions.k8s.io/v1beta1
+      kind: CustomResourceDefinition
+      metadata:
+        creationTimestamp: null
+        labels:
+          kubevirt.io: ""
+        name: virtualmachines.kubevirt.io
+      spec:
+        version: v1alpha2
+        group: kubevirt.io
+        names:
+          kind: VirtualMachine
+          plural: virtualmachines
+          shortNames:
+          - vm
+          - vms
+          singular: virtualmachine
+        scope: Namespaced
+        validation:
+          openAPIV3Schema:
+            properties:
+              apiVersion:
+                type: string
+              kind:
+                type: string
+              metadata: {}
+              spec:
+                properties:
+                  dataVolumeTemplates:
+                    items: {}
+                    type: array
+                  running:
+                    type: boolean
+                  template:
+                    properties:
+                      metadata: {}
+                      spec:
+                        properties:
+                          affinity: {}
+                          domain:
+                            properties:
+                              clock:
+                                properties:
+                                  timezone:
+                                    type: string
+                                  utc:
+                                    properties:
+                                      offsetSeconds:
+                                        format: int32
+                                        type: integer
+                              cpu:
+                                properties:
+                                  cores:
+                                    format: int64
+                                    type: integer
+                                  model:
+                                    type: string
+                              devices:
+                                properties:
+                                  autoattachGraphicsDevice:
+                                    type: boolean
+                                  autoattachPodInterface:
+                                    type: boolean
+                                  disks:
+                                    items:
+                                      properties:
+                                        bootOrder:
+                                          format: int32
+                                          type: integer
+                                        cdrom:
+                                          properties:
+                                            bus:
+                                              type: string
+                                            readonly:
+                                              type: boolean
+                                            tray:
+                                              type: string
+                                        disk:
+                                          properties:
+                                            bus:
+                                              type: string
+                                            readonly:
+                                              type: boolean
+                                        floppy:
+                                          properties:
+                                            readonly:
+                                              type: boolean
+                                            tray:
+                                              type: string
+                                        lun:
+                                          properties:
+                                            bus:
+                                              type: string
+                                            readonly:
+                                              type: boolean
+                                        name:
+                                          type: string
+                                        serial:
+                                          type: string
+                                        volumeName:
+                                          type: string
+                                      required:
+                                      - name
+                                      - volumeName
+                                    type: array
+                                  interfaces:
+                                    items:
+                                      properties:
+                                        bootOrder:
+                                          format: int32
+                                          type: integer
+                                        bridge: {}
+                                        macAddress:
+                                          type: string
+                                        model:
+                                          type: string
+                                        name:
+                                          type: string
+                                        pciAddress:
+                                          type: string
+                                        ports:
+                                          items:
+                                            properties:
+                                              name:
+                                                type: string
+                                              port:
+                                                format: int32
+                                                type: integer
+                                              protocol:
+                                                type: string
+                                            required:
+                                            - port
+                                          type: array
+                                        slirp: {}
+                                      required:
+                                      - name
+                                    type: array
+                                  rng: {}
+                                  watchdog:
+                                    properties:
+                                      i6300esb:
+                                        properties:
+                                          action:
+                                            type: string
+                                      name:
+                                        type: string
+                                    required:
+                                    - name
+                              features:
+                                properties:
+                                  acpi:
+                                    properties:
+                                      enabled:
+                                        type: boolean
+                                  apic:
+                                    properties:
+                                      enabled:
+                                        type: boolean
+                                      endOfInterrupt:
+                                        type: boolean
+                                  hyperv:
+                                    properties:
+                                      relaxed:
+                                        properties:
+                                          enabled:
+                                            type: boolean
+                                      reset:
+                                        properties:
+                                          enabled:
+                                            type: boolean
+                                      runtime:
+                                        properties:
+                                          enabled:
+                                            type: boolean
+                                      spinlocks:
+                                        properties:
+                                          enabled:
+                                            type: boolean
+                                          spinlocks:
+                                            format: int64
+                                            type: integer
+                                      synic:
+                                        properties:
+                                          enabled:
+                                            type: boolean
+                                      synictimer:
+                                        properties:
+                                          enabled:
+                                            type: boolean
+                                      vapic:
+                                        properties:
+                                          enabled:
+                                            type: boolean
+                                      vendorid:
+                                        properties:
+                                          enabled:
+                                            type: boolean
+                                          vendorid:
+                                            type: string
+                                      vpindex:
+                                        properties:
+                                          enabled:
+                                            type: boolean
+                              firmware:
+                                properties:
+                                  uuid:
+                                    type: string
+                              machine:
+                                properties:
+                                  type:
+                                    type: string
+                                required:
+                                - type
+                              memory:
+                                properties:
+                                  guest: {}
+                                  hugepages:
+                                    properties:
+                                      pageSize:
+                                        type: string
+                              resources:
+                                properties:
+                                  limits:
+                                    type: object
+                                  overcommitGuestOverhead:
+                                    type: boolean
+                                  requests:
+                                    type: object
+                            required:
+                            - devices
+                          hostname:
+                            type: string
+                          networks:
+                            items:
+                              properties:
+                                multus:
+                                  properties:
+                                    networkName:
+                                      type: string
+                                  required:
+                                  - networkName
+                                name:
+                                  type: string
+                                pod:
+                                  properties:
+                                    vmNetworkCIDR:
+                                      type: string
+                              required:
+                              - name
+                            type: array
+                          nodeSelector:
+                            type: object
+                          subdomain:
+                            type: string
+                          terminationGracePeriodSeconds:
+                            format: int64
+                            type: integer
+                          tolerations:
+                            items: {}
+                            type: array
+                          volumes:
+                            items:
+                              properties:
+                                cloudInitNoCloud:
+                                  properties:
+                                    secretRef: {}
+                                    userData:
+                                      type: string
+                                    userDataBase64:
+                                      type: string
+                                dataVolume:
+                                  properties:
+                                    name:
+                                      type: string
+                                  required:
+                                  - name
+                                emptyDisk:
+                                  properties:
+                                    capacity: {}
+                                  required:
+                                  - capacity
+                                ephemeral:
+                                  properties:
+                                    persistentVolumeClaim: {}
+                                name:
+                                  type: string
+                                persistentVolumeClaim: {}
+                                registryDisk:
+                                  properties:
+                                    image:
+                                      type: string
+                                    imagePullSecret:
+                                      type: string
+                                  required:
+                                  - image
+                              required:
+                              - name
+                            type: array
+                        required:
+                        - domain
+                required:
+                - running
+                - template
+              status:
+                properties:
+                  conditions:
+                    items:
+                      properties:
+                        lastProbeTime: {}
+                        lastTransitionTime: {}
+                        message:
+                          type: string
+                        reason:
+                          type: string
+                        status:
+                          type: string
+                        type:
+                          type: string
+                      required:
+                      - type
+                      - status
+                    type: array
+                  created:
+                    type: boolean
+                  ready:
+                    type: boolean
+
   clusterServiceVersions: |-
     - apiVersion: operators.coreos.com/v1alpha1
       kind: ClusterServiceVersion
@@ -146,6 +1341,30 @@ data:
             kind: Virt
             displayName: KubeVirt
             description: KubeVirt operator managing the KubeVirt Application
+
+          - name: virtualmachineinstances.kubevirt.io
+            version: v1alpha2
+            kind: VirtualMachineInstance
+            displayName: virtualmachineinstance
+            description: Virtual Machine Templates
+
+          - name: virtualmachineinstancereplicasets.kubevirt.io
+            version: v1alpha2
+            kind: VirtualMachineInstanceReplicaSet
+            displayName: virtualmachineinstancereplicaset
+            description: Virtual Machine Replica Sets
+
+          - name: virtualmachineinstancepresets.kubevirt.io
+            version: v1alpha2
+            kind: VirtualMachineInstancePreset
+            displayName: virtualmachineinstancepreset
+            description: Virtual Machine Presets
+
+          - name: virtualmachines.kubevirt.io
+            version: v1alpha2
+            kind: VirtualMachine
+            displayName: virtualmachine
+            description: Virtual Machines
 
   packages: |-
     - packageName: kubevirt
