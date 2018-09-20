@@ -4,7 +4,7 @@ metadata:
   name: kubevirt-operator
 rules:
 - apiGroups:
-  - app.kubevirt.io
+  - virt.kubevirt.io
   resources:
   - "*"
   verbs:

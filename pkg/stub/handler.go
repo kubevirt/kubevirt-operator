@@ -5,7 +5,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/kubevirt/kubevirt-operator/pkg/apis/app/v1alpha1"
+	"github.com/kubevirt/kubevirt-operator/pkg/apis/virt/v1alpha1"
 
 	"github.com/operator-framework/operator-sdk/pkg/sdk"
 	"github.com/sirupsen/logrus"
@@ -21,7 +21,7 @@ type Handler struct {
 
 func (h *Handler) Handle(ctx context.Context, event sdk.Event) error {
 	switch event.Object.(type) {
-	case *v1alpha1.App:
+	case *v1alpha1.Virt:
 		// Create kubevirt manifest using the client
 		cmd := exec.Command("kubectl", "create", "-f", "/etc/kubevirt/kubevirt.yaml")
 		// Error is outputed in plain text in out

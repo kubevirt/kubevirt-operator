@@ -6,24 +6,24 @@ import (
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-type AppList struct {
+type VirtList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
-	Items           []App `json:"items"`
+	Items           []Virt `json:"items"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-type App struct {
+type Virt struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              AppSpec   `json:"spec"`
-	Status            AppStatus `json:"status,omitempty"`
+	Spec              VirtSpec   `json:"spec"`
+	Status            VirtStatus `json:"status,omitempty"`
 }
 
-type AppSpec struct {
+type VirtSpec struct {
 	// Fill me
 }
-type AppStatus struct {
+type VirtStatus struct {
 	// Fill me
 }
