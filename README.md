@@ -15,9 +15,9 @@ Operator that manages KubeVirt
 Checkout the project and its dependencies:
 
 ```bash
-mkdir -p $GOPATH/src/github.com/rthallisey
-cd $GOPATH/src/github.com/rthallisey
-git clone https://github.com/rthallisey/kubevirt-operator
+mkdir -p $GOPATH/src/github.com/kubevirt
+cd $GOPATH/src/github.com/kubevirt
+git clone https://github.com/kubevirt/kubevirt-operator
 cd kubevirt-operator
 git checkout master
 make dep

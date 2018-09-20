@@ -1,6 +1,6 @@
 SHELL=/bin/bash -o pipefail
 
-REPO?=docker.io/rthallisey/kubevirt-operator
+REPO?=docker.io/kubevirt/kubevirt-operator
 TAG?=$(shell git rev-parse --short HEAD)
 
 GOLANG_FILES:=$(shell find . -name \*.go -print)

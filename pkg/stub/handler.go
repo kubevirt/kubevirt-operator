@@ -5,7 +5,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/rthallisey/kubevirt-operator/pkg/apis/app/v1alpha1"
+	"github.com/kubevirt/kubevirt-operator/pkg/apis/app/v1alpha1"
 
 	"github.com/operator-framework/operator-sdk/pkg/sdk"
 	"github.com/sirupsen/logrus"
