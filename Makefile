@@ -58,9 +58,9 @@ deploy: setprivileges
 
 undeploy:
 	# Undeploy the app-operator
-	kubectl delete -f deploy/cr.yaml
-	kubectl delete -f deploy/operator.yaml
-	kubectl delete -f deploy/rbac.yaml
+	kubectl delete -f deploy/crd.yaml --ignore-not-found
+	kubectl delete -f deploy/operator.yaml --ignore-not-found
+	kubectl delete -f deploy/rbac.yaml --ignore-not-found
 
 ##############
 # Formatting #
