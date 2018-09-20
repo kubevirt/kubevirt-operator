@@ -1,4 +1,4 @@
-apiVersion: "app.kubevirt.io/v1alpha1"
-kind: "App"
+apiVersion: "virt.kubevirt.io/v1alpha1"
+kind: "Virt"
 metadata:
-  name: "example"
+  name: "kubevirt"

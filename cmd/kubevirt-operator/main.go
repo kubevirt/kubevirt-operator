@@ -24,8 +24,8 @@ func main() {
 
 	sdk.ExposeMetricsPort()
 
-	resource := "app.kubevirt.io/v1alpha1"
-	kind := "App"
+	resource := "virt.kubevirt.io/v1alpha1"
+	kind := "virt"
 	namespace, err := k8sutil.GetWatchNamespace()
 	if err != nil {
 		logrus.Fatalf("failed to get watch namespace: %v", err)

@@ -1,3 +1,3 @@
 // +k8s:deepcopy-gen=package
-// +groupName=app.kubevirt.io
+// +groupName=virt.kubevirt.io
 package v1alpha1
