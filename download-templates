@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+VERSION="${1:-$VERSION}"
+CONFIG_DIR="${2:-/etc/kubevirt}"
+MANIFEST_URL="https://github.com/kubevirt/kubevirt/releases/download"
+
+
+if [ "${VERSION}" == "latest" ]; then
+    VERSION=$(curl --silent "https://api.github.com/repos/kubevirt/kubevirt/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+fi
+
+echo "Downloading ${VERSION} release templates from kubevirt/kubevirt"
+curl -Lf "${MANIFEST_URL}/${VERSION}/kubevirt.yaml" -o "${CONFIG_DIR}/kubevirt.yaml"
