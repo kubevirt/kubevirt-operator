@@ -1,7 +1,7 @@
 SHELL=/bin/bash -o pipefail
 
 REPO?=docker.io/kubevirt/kubevirt-operator
-TAG?=$(shell git rev-parse --short HEAD)
+TAG?="latest"
 
 GOLANG_FILES:=$(shell find . -name \*.go -print)
 pkgs = $(shell go list ./... | grep -v /vendor/ )
@@ -30,8 +30,8 @@ kubevirt-operator: $(GOLANG_FILES)
 # Build      #
 ##############
 
-build:
-	$(GOPATH)/bin/operator-sdk build $(REPO):$(TAG)
+build: compile
+	docker build -t $(REPO):$(TAG) -f Dockerfile --build-arg VERSION=$(TAG) .
 
 push:
 	docker push $(REPO):$(TAG)
