@@ -37,6 +37,25 @@ push:
 	docker push $(REPO):$(TAG)
 
 ##############
+# OLM        #
+##############
+
+olm:
+	oc create -f kubevirt-operator-configmap.yaml -f kubevirt-catalog-source.yaml
+
+rm-olm:
+	oc delete -f kubevirt-operator-configmap.yaml -f kubevirt-catalog-source.yaml
+
+##############
+# CR        #
+##############
+
+cr:
+	# Temporary Hack: Need to fix rbac
+	oc adm policy add-cluster-role-to-user -z kubevirt-operator cluster-admin
+	oc create -f deploy/cr.yaml
+
+##############
 # Deploy     #
 ##############
 
@@ -71,4 +90,4 @@ format: go-fmt
 go-fmt:
 	go fmt $(pkgs)
 
-.PHONY: dep all clean compile build push deploy undeploy format
+.PHONY: dep all clean compile build push deploy undeploy format olm rm-olm cr
