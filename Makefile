@@ -31,7 +31,7 @@ kubevirt-operator: $(GOLANG_FILES)
 ##############
 
 build: compile
-	docker build -t $(REPO):$(TAG) -f Dockerfile --build-arg VERSION=$(TAG) .
+	docker build -t $(REPO):$(TAG) -f Dockerfile .
 
 push:
 	docker push $(REPO):$(TAG)
