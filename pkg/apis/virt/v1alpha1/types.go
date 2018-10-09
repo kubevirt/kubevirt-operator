@@ -22,7 +22,8 @@ type Virt struct {
 }
 
 type VirtSpec struct {
-	// Fill me
+	Version  string
+	Registry string
 }
 type VirtStatus struct {
 	// Fill me
