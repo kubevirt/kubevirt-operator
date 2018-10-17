@@ -8,7 +8,7 @@ pkgs = $(shell go list ./... | grep -v /vendor/ )
 
 dep:
 	dep ensure -v
-	wget -o kubevirt.yaml https://github.com/kubevirt/kubevirt/releases/download/v0.6.4/kubevirt.yaml
+	wget -O kubevirt.yaml https://github.com/kubevirt/kubevirt/releases/download/v0.6.4/kubevirt.yaml
 
 all: format dep compile build deploy
 
