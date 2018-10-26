@@ -20,7 +20,7 @@ type Handler struct {
 func (h *Handler) Handle(ctx context.Context, event sdk.Event) error {
 	switch o := event.Object.(type) {
 	case *v1alpha1.Virt:
-		return kubevirt.Reconcile(o)
+		return kubevirt.Reconcile(o, event.Deleted)
 	}
 	return nil
 }

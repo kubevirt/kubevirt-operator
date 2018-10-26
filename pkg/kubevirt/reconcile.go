@@ -20,7 +20,7 @@ type config struct {
 }
 
 // Reconcile - Reconcile the current state of the world with the expected state
-func Reconcile(v *v1alpha1.Virt) error {
+func Reconcile(v *v1alpha1.Virt, deleted bool) error {
 	conf, err := newConfig(v)
 	if err != nil {
 		return err
@@ -31,14 +31,18 @@ func Reconcile(v *v1alpha1.Virt) error {
 		return err
 	}
 
-	applyManifest(conf)
+	if deleted {
+		consumeManifest(conf, "delete")
+		return nil
+	}
+	consumeManifest(conf, "apply")
 
 	return nil
 }
 
-func applyManifest(c config) {
+func consumeManifest(c config, action string) {
 	// Create kubevirt manifest using the client
-	cmd := exec.Command("kubectl", "apply", "-f", c.manifest)
+	cmd := exec.Command("kubectl", action, "-f", c.manifest)
 	// Error is outputed in plain text in out
 	out, _ := cmd.CombinedOutput()
 	if strings.Contains(string(out), "Error from server (AlreadyExists)") {
@@ -76,8 +80,8 @@ func renderConfigFile(c config) error {
 	return nil
 }
 
-func newConfig(v *v1alpha1.Virt) (
-	config, error) {
+func newConfig(v *v1alpha1.Virt) (config, error) {
+
 	kubevirtVersion := v.Spec.Version
 	registry := v.Spec.Registry
 	if kubevirtVersion == "" {
