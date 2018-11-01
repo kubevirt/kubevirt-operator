@@ -42,6 +42,9 @@ push:
 
 olm:
 	oc create -f kubevirt-operator-configmap.yaml -f kubevirt-catalog-source.yaml
+	git clone -f https://github.com/kirankt/ember-csi-operator.git /tmp/ember-csi-operator
+	oc create -f /tmp/ember-csi-operator/deploy/olm-catalog/catalog-source.yml
+	oc create -f /tmp/ember-csi-operator/deploy/olm-catalog/configmap.yml
 
 rm-olm:
 	oc delete -f kubevirt-operator-configmap.yaml -f kubevirt-catalog-source.yaml

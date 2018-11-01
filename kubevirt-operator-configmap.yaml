@@ -1486,6 +1486,13 @@ data:
             displayName: virtualmachine
             description: Virtual Machines
 
+          required:
+          - name: embercsis.ember-csi.io
+            version: v1alpha1
+            kind: EmberCSI
+            displayName: EmberCSI Application
+            description: Represents an instance of a EmberCSI application
+
   packages: |-
     - packageName: kubevirt
       channels:
