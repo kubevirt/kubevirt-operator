@@ -1493,6 +1493,12 @@ data:
             displayName: EmberCSI Application
             description: Represents an instance of a EmberCSI application
 
+          - name: cdis.cdi.kubevirt.io
+            version: v1alpha1
+            kind: CDI
+            displayName: CDI Application
+            description: Represents an instance of a CDI application
+
   packages: |-
     - packageName: kubevirt
       channels:
